@@ -1,6 +1,6 @@
-from fetcher import get_data
-from assembler import DataCollector
-from slack_client import send_message
+from google_sheets_reader.src.fetcher import get_data
+from google_sheets_reader.src.assembler import DataCollector
+from google_sheets_reader.src.slack_client import send_message
 
 
 def update_progress():

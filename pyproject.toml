@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "google-sheets-reader"
 version = "0.1.0"
-description = "An automated progress logger for google sheeets"
+description = "An automated progress logger for google sheets and slack."
 authors = ["Jesse Leung <jesse@steins.co.jp>"]
 license = "MIT"
 readme = "README.md"

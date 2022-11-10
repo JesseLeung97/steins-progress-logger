@@ -1,5 +1,5 @@
-from src.team_members import TeamMembers
-from src.progress_data import ProgressData
+from google_sheets_reader.src.team_members import TeamMembers
+from google_sheets_reader.src.progress_data import ProgressData
 from datetime import datetime
 
 
