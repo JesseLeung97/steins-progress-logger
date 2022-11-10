@@ -1,4 +1,4 @@
-from main import update_progress
+from google_sheets_reader.src.main import update_progress
 
 
 def main():

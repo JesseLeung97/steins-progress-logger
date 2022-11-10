@@ -1,5 +1,5 @@
 from slack_sdk import WebClient
-from environment_variables import environment_variables
+from google_sheets_reader.environment_variables import environment_variables
 
 # Send update message in clack channel
 def send_message(message: str) -> None:

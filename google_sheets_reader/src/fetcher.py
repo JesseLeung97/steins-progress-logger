@@ -2,8 +2,8 @@ from typing import List
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
-from constants import Constants
-from environment_variables import environment_variables
+from google_sheets_reader.constants import Constants
+from google_sheets_reader.environment_variables import environment_variables
 
 # Get Google Sheets API credentials from keys file
 def _get_credentials() -> Credentials:

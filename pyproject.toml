@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "google-sheets-reader"
+version = "0.1.0"
+description = "An automated progress logger for google sheeets"
+authors = ["Jesse Leung <jesse@steins.co.jp>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "google_sheets_reader"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+python-dotenv = "^0.21.0"
+datetime = "^4.7"
+google = "^3.0.0"
+slack-sdk = "^3.19.3"
+google-api-python-client = "^2.65.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
