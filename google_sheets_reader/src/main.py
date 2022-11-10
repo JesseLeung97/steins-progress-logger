@@ -12,4 +12,3 @@ def update_progress():
     all_data = data_collector.to_string()
 
     send_message(message=all_data)
-
