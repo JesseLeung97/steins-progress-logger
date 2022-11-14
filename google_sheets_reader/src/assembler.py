@@ -16,6 +16,12 @@ def _get_today() -> str:
     return datetime.today().strftime("%Y/%m/%d")
 
 
+def _check_member(member: str) -> bool:
+    if member.__eq__(TeamMembers.Simon) or member.__eq__(TeamMembers.Andreas) or member.__eq__(TeamMembers.Tom) or member.__eq__(TeamMembers.Jesse):
+        return True
+    return False
+
+
 # Gather progress data for each team member then convert to a message string
 class DataCollector: 
     def __init__(self) -> None:
@@ -28,6 +34,9 @@ class DataCollector:
 
 
     def _add_data(self, row) -> None:
+        if not _check_member(row[1]):
+            return
+            
         if not _check_date(row[3]):
             return
 
