@@ -1,14 +1,19 @@
 from google_sheets_reader.src.team_members import TeamMembers
 from google_sheets_reader.src.progress_data import ProgressData
+from google_sheets_reader.constants import Constants
 from datetime import datetime
 
 
 # Only add tasks which have been updated today
-def check_date(listed_date: str) -> bool:
-    today = datetime.today().strftime("%Y/%m/%d")
+def _check_date(listed_date: str) -> bool:
+    today = _get_today()
     if not listed_date.__eq__(today):
         return False
     return True
+
+
+def _get_today() -> str:
+    return datetime.today().strftime("%Y/%m/%d")
 
 
 # Gather progress data for each team member then convert to a message string
@@ -23,7 +28,7 @@ class DataCollector:
 
 
     def _add_data(self, row) -> None:
-        if not check_date(row[3]):
+        if not _check_date(row[3]):
             return
 
         member_data = self.all_data[row[1]]
@@ -37,17 +42,18 @@ class DataCollector:
 
 
     def to_string(self) -> str:
-        res = ""
+        res = f"*{_get_today()} 進捗情報：*\n\n\n"
         for key, value in self.all_data.items():
             res += f"{key}\n\n"
             for embedKey, embedValue in value.data.items():
                 if len(embedValue) == 0:
                     continue
-                
+                res += "```"
                 res += f"{embedKey}\n"
                 for task in embedValue:
-                    res += f"    {task}\n"
+                    res += f"{Constants.INDENT}{task}\n"
+                res += "```"
                 res += "\n"
-            res += "-----\n\n"    
+            res += "\n\n"    
         return res
         
