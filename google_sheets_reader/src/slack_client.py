@@ -18,3 +18,5 @@ def send_message(message: str) -> None:
 def send_reminder_message() -> None:
     client = WebClient(environment_variables.BOT_TOKEN)
     res = client.chat_postMessage(channel=environment_variables.CHANNEL_ID, text=f"Remember to update the date and status of tickets you worked on today by 9pm.\nDate today: {_get_today()}")
+
+    print(f"{res}")
