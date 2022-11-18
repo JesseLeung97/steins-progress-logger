@@ -42,9 +42,15 @@ class DataCollector:
         }
 
 
-    # add data that is in progress, waiting for PR, or finished that day
-    def _add_data(self, row) -> None:
-        if (not _check_member(row[1])) or ( _check_finished(row[2]) and not _check_date(row[3])) or (_check_not_started(row[2])):
+    # Add  dialog data that is in progress, waiting for PR, or finished that day
+    def _add_dialog_data(self, row) -> None:
+        team_member_col = 1
+        status_col = 2
+        date_col = 3
+
+        if ((not _check_member(row[team_member_col])) or 
+            ( _check_finished(row[status_col]) and not _check_date(row[date_col])) or 
+            (_check_not_started(row[status_col]))):
             return
 
         member_data = self.all_data[row[1]]
@@ -52,9 +58,45 @@ class DataCollector:
         progress_list.append(row[0])
 
 
-    def add_data(self, data) -> None:
+    # Add server data that is in progress, waiting for PR, or finished that day
+    def _add_server_data(self, row) -> None:
+        task_name_col = 1
+        server_team_member_col = 5
+        server_status_col = 6
+        server_date_col = 7
+        client_team_member_col = 9
+        client_status_col = 10
+        client_date_col = 11
+
+        is_invalid_server = (not _check_member(row[server_team_member_col]) or 
+            (_check_finished(row[server_status_col]) and not _check_date(row[server_date_col])) or 
+            (_check_not_started(row[server_status_col])))
+        
+        is_invalid_client = (not _check_member(row[client_team_member_col]) or
+            (_check_finished(row[client_status_col]) and not _check_date(row[client_date_col])) or
+            (_check_not_started(row[client_status_col])))
+
+        if not is_invalid_server:
+            member_data = self.all_data[row[server_team_member_col]]
+            progress_list = member_data.data[row[server_status_col]]
+            progress_list.append(f"[サーバー] {row[task_name_col]}")
+
+        if not is_invalid_client:
+            member_data = self.all_data[row[client_team_member_col]]
+            progress_list = member_data.data[row[client_status_col]]
+            progress_list.append(f"[クライアント] {row[task_name_col]}")
+
+
+    # Add dialog data 
+    def add_dialog_data(self, data) -> None:
         for d in data:
-            self._add_data(d)
+            self._add_dialog_data(d)
+
+    
+    # Add server data
+    def add_server_data(self, data) -> None:
+        for d in data:
+            self._add_server_data(d)
 
 
     def to_string(self) -> str:

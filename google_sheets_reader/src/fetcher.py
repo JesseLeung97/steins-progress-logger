@@ -15,16 +15,31 @@ def _get_credentials() -> Credentials:
         scopes=Constants.SCOPES)
 
 
-# Fetch data from Google Sheets using loaded credentials
-def get_data() -> List[any]:
+# Fetch dialog data from Google Sheets using loaded credentials
+def get_dialog_data() -> List[any]:
     creds = _get_credentials()
 
     service = build('sheets', 'v4', credentials=creds)
     sheet = service.spreadsheets()
     result = sheet.values().get(
         spreadsheetId=environment_variables.SPREADSHEET_ID,
-        range=f"{Constants.SPREADSHEET_NAME}!{Constants.SPREADSHEET_RANGE}"
+        range=f"{Constants.DIALOG_SPREADSHEET_NAME}!{Constants.DIALOG_SPREADSHEET_RANGE}"
         ).execute()
     values = result["values"]
     
+    return values
+
+
+# Fetch server/client tasks for master data from Google Sheets using loaded credentials
+def get_server_data() -> List[any]:
+    creds = _get_credentials()
+
+    service = build('sheets', 'v4', credentials=creds)
+    sheet = service.spreadsheets()
+    result = sheet.values().get(
+        spreadsheetId=environment_variables.SPREADSHEET_ID,
+        range=f"{Constants.SERVER_SPREADSHEET_NAME}!{Constants.SERVER_SPREADSHEET_RANGE}"
+        ).execute()
+    values = result["values"]
+
     return values
